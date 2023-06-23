@@ -1,0 +1,125 @@
+.movies-card {
+  max-width: 360px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #222222;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+}
+
+@media screen and (max-width: 1024px) {
+  .movies-card {
+    max-width: 342px;
+    width: 100%;
+  }
+}
+
+.movies-card__inner {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 18px 18px 17px;
+}
+
+@media screen and (max-width: 1024px) {
+  .movies-card__inner {
+    padding: 15px 18px 18px 18px;
+  }
+}
+@media screen and (max-width: 620px) {
+  .movies-card__inner {
+    padding: 15px 18px 11px 18px;
+  }
+}
+
+.movies-card__name {
+  margin: 0 15px 0 0;
+  max-width: 226px;
+  font-family: 'Inter', Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+  color: #FFFFFF;
+}
+
+@media screen and (max-width: 620px) {
+  .movies-card__name {
+    font-size: 12px;
+  }
+}
+
+
+.movies-card__duration {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  color: #8B8B8B;
+}
+
+@media screen and (max-width: 620px) {
+  .movies-card__duration {
+    font-size: 10px;
+    line-height: 18px;
+  }
+}
+
+
+.movies-card__img {
+  height: 200px;
+  object-fit: cover;
+  font-family: 'Inter', Helvetica, sans-serif;
+  color: #FFFFFF;
+}
+
+@media screen and (max-width: 1024px) {
+  .movies-card__img {
+    height: 190px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .movies-card__img {
+    height: 168px;
+  }
+}
+
+.movies-card__button {
+  width: 101px;
+  height: 30px;
+  padding: 9px 13px 9px 15px;
+  margin: 18px auto 18px auto;
+  border: none;
+  background: #313131;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-family: 'Inter', Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 11px;
+  color: #FFFFFF;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+.movies-card__button:hover {
+  opacity: 0.8;
+}
+@media screen and (max-width: 620px) {
+  .movies-card__button {
+    margin: 14px auto 14px auto;
+  }
+}
+
+.movies-card__button_type_pink {
+  background: #EE3465;
+}
+
+.movies-card__button-icon {
+  margin: 1px 7px 2px 0;
+  width: 12px;
+  height: 10px;
+}

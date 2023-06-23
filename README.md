@@ -1,1 +1,3 @@
-# movies-explorer-frontend
+Этап 3: верстка и JSX
+
+ссылка на макет: https://docviewer.yandex.ru/view/1468295621/?*=Lkxyhv8Z38Azw8zqKiZ8VQdL2bN7InVybCI6InlhLWRpc2s6Ly8vZGlzay9EaXBsb21hIChDb3B5KS5maWciLCJ0aXRsZSI6IkRpcGxvbWEgKENvcHkpLmZpZyIsIm5vaWZyYW1lIjpmYWxzZSwidWlkIjoiMTQ2ODI5NTYyMSIsInRzIjoxNjg3NTIxMDM5NTY5LCJ5dSI6IjI1NTc4MjcwNjE2ODA2ODI0MDAifQ%3D%3D

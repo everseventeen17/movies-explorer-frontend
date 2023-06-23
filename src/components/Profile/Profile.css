@@ -1,0 +1,235 @@
+.profile {
+  max-width: 470px;
+  margin: 0 auto;
+  padding: 35px 30px 30px 30px;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 1024px) {
+  .profile {
+    padding: 196px 0 30px 0;
+    max-width: 410px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .profile {
+    padding: 16px 30px 30px 30px;
+  }
+}
+
+/*TITLE*/
+.profile__title {
+  margin: 36px 0 39px 0;
+  font-family: 'Inter', Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+@media screen and (max-width: 620px) {
+  .profile__title {
+    margin: 50px 0 80px 0;
+  }
+}
+
+/*FORM*/
+.profile__form {
+  padding: 83px 0 0 0;
+}
+
+@media screen and (max-width: 1024px) {
+  .profile__form {
+    padding: 56px 0 0 0;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .profile__form {
+    padding: 0;
+  }
+}
+
+/*input-wrapper*/
+.profile__input-wrapper {
+  display: flex;
+  flex-direction: row;
+  padding: 17px 0 15px 0;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-family: 'Inter', Helvetica, sans-serif;
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 13px;
+  color: #FFFFFF;
+  border-bottom: 1px solid #424242;
+  margin: 0 0 1px 0;
+}
+
+.profile__input-wrapper:first-of-type {
+  padding: 0;
+}
+
+.profile__input-wrapper:last-of-type {
+  margin: 0 0 8px 0;
+  border-bottom: none;
+}
+
+
+/*input*/
+.profile__input {
+  width: 350px;
+  padding: 0 3px 17px 0;
+  border: none;
+  border-bottom-color: transparent;
+  outline: none;
+  background-color: #202020;
+  border-radius: 8px;
+  font-family: 'Inter', Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: right;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+@media screen and (max-width: 620px) {
+  .profile__input {
+    width: 200px;
+  }
+}
+
+.form__input_type_error {
+  color: #EE3465;
+}
+
+/*actions-buttons*/
+.profile__actions-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin: 168px 0 0 0;
+  width: 100%;
+}
+
+@media screen and (max-width: 1024px) {
+  .profile__actions-wrapper {
+    margin: 159px 0 0 0;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .profile__actions-wrapper {
+    margin: 327px 0 0 0;
+  }
+}
+
+.profile__actions-wrapper_hidden {
+  display: none;
+}
+
+.profile__btn-action {
+  padding: 0;
+  border: none;
+  background-color: #202020;
+  cursor: pointer;
+  font-family: 'Inter', Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  transition: 0.3s ease;
+}
+
+.profile__btn-action:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 620px) {
+  .profile__btn-action {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
+
+.profile__btn-action_type_edit-profile {
+  color: #FFFFFF;
+}
+
+.profile__btn-action_type_exit {
+  color: #EE3465;
+}
+
+
+/*button-submit*/
+.profile__button {
+  width: 100%;
+  height: 45px;
+  padding: 0;
+  margin: 55px 0 0 0;
+  border: none;
+  border-radius: 3px;
+  background-color: #4285F4;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-family: 'Inter', Helvetica, sans-serif;
+  font-style: normal;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+  color: #FFFFFF;
+}
+
+@media screen and (max-width: 1024px) {
+  .profile__button {
+    padding-top: 56px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .profile__button {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
+
+.profile__button:disabled {
+  background-color: #F8F8F8;
+  color: #C2C2C2;
+  pointer-events: none;
+}
+
+.profile__button_hidden {
+  display: none;
+}
+
+/*api-error*/
+.registration__api-error {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  opacity: 0;
+  visibility: hidden;
+  color: #EE3465;
+}
+
+@media screen and (max-width: 620px) {
+  .registration__api-error {
+    margin: 1px 0 0 0;
+  }
+}
+
+.registration__api-error_active {
+  opacity: 1;
+  visibility: visible;
+}
