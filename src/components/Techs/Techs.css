@@ -138,9 +138,9 @@
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 620px) {
   .techs__list-item {
-    width: 47%;
+    width: 84px;
   }
 }
 

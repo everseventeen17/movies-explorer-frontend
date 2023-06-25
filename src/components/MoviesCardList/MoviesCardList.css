@@ -19,17 +19,15 @@
 .movies-cards__list {
   display: flex;
   flex-wrap: wrap;
-  gap: 34px 22px;
+  gap: 34px 30px;
   list-style: none;
   margin: 0;
   padding: 0;
-  justify-content: space-between;
 }
 
 @media screen and (max-width: 1024px) {
   .movies-cards__list {
-    gap: 37px 19px;
-    justify-content: center;
+    gap: 37px 24px;
   }
 }
 

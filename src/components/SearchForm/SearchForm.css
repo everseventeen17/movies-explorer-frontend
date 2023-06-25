@@ -19,6 +19,7 @@
 .search__inner {
   display: flex;
   width: 100%;
+  gap: 10px;
 }
 
 .search__form {
@@ -81,10 +82,11 @@
 
 
 .search__button {
-  width: 51px;
+  width: 100%;
+  max-width: 44px;
   height: 44px;
   padding: 0;
-  margin: 2px 0 0 11px;
+  margin: 2px 0 0 0;
   border: none;
   border-radius: 8px;
   background-color: #4285F4;
@@ -99,25 +101,13 @@
 
 .search__button:after {
   content: '';
-  width: 17px;
+  width: 18px;
   height: 17px;
   position: absolute;
   top: 14px;
-  left: 15px;
+  left: 33%;
   background-image: url("../../images/search-form-icon.svg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-}
-
-@media screen and (max-width: 1024px) {
-  .search__button {
-    margin: 2px 0 0 10px;
-    width: 58px;
-  }
-}
-@media screen and (max-width: 420px) {
-  .search__button {
-    width: 92px;
-  }
 }
