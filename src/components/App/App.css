@@ -1,0 +1,9 @@
+.body {
+  background-color: #202020;
+  display: flex;
+  justify-content: space-between;
+  height: 100vh;
+  flex-direction: column;
+  max-width: 1280px;
+  margin: 0 auto;
+}
