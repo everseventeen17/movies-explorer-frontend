@@ -5,10 +5,10 @@ import AboutMe from "../AboutMe/AboutMe";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
-function Main() {
+function Main({loggedIn, onBurgerClick}) {
   return (
     <>
-      <Header/>
+      <Header loggedIn={loggedIn} onBurgerClick={onBurgerClick}/>
       <main>
         <Promo/>
         <AboutProject/>

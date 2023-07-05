@@ -1,9 +1,12 @@
 import "./FilterCheckbox.css";
 
-function FilterCheckbox({ onFilterChange, isFilter }) {
+function FilterCheckbox({ onFilter, isFilterOn, }) {
   return (
     <label className="filter-checkbox">
-      <input className="filter-checkbox__hidden" type="checkbox" value={isFilter} onChange={(evt) => onFilterChange(evt.target.checked)}/>
+      <input className="filter-checkbox__hidden" type="checkbox"
+             checked={isFilterOn.checkbox}
+             onChange={onFilter}
+      />
       <span className="filter-checkbox__visible"></span>
       Короткометражки
     </label>

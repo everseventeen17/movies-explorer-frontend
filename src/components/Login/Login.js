@@ -1,15 +1,24 @@
 import { Link } from 'react-router-dom';
-import { useFormValidationHook } from "../../utils/useFormValidationHook";
+import { useEffect } from "react";
+import { Navigate } from "react-router-dom";
+import useFormWithValidation from "../../utils/useFormWithValidation";
 import './Login.css'
 import logo from "../../images/logo.svg";
 
-function Register() {
-  const { values, errors, isValid, handleChange } = useFormValidationHook();
+function Login({onLogin, onLoading, isServerResponseErrorText, setIsServerResponseErrorText, loggedIn, onSubmit}) {
+  const { values, errors, isValid, handleChange } = useFormWithValidation();
+  useEffect(() => {
+    setIsServerResponseErrorText("");
+  }, [setIsServerResponseErrorText]);
+
   function handleSubmit(e) {
     e.preventDefault();
+    onLogin(values);
   }
 
-  return (
+  return loggedIn ? (
+    <Navigate to="/" replace />
+  ) : (
     <main>
       <section className="auth">
 
@@ -19,7 +28,7 @@ function Register() {
 
         <h2 className='auth__title'>Рады видеть!</h2>
 
-        <form className='auth__form'>
+        <form className='auth__form' onSubmit={onSubmit}>
 
           <label className="auth__input-wrapper">E-mail
             <input name="email" type="email" className={`auth__input ${errors.email ? "auth__input_type_error" : ""}`} minLength="2" maxLength="30" required onChange={handleChange} value={values.email || ''} />
@@ -31,17 +40,17 @@ function Register() {
             {/*<span id="auth__text-error" className={`auth__text-error ${errors.password ? "auth__text-error_visible" : ""}`}>{errors.password}</span>*/}
           </label>
 
-          <p className={`registration__api-error ${isValid ? 'registration__api-error_active' : ""}`}>Что-то пошло не так...</p>
+          <p className={`registration__api-error ${isValid ? 'registration__api-error_active' : ""}`}>{isServerResponseErrorText}</p>
 
-          <button type="submit" className={`auth__button ${!isValid ? 'auth__button_disabled' : ""}`} disabled={!isValid} onClick={handleSubmit} >Войти</button>
+          <button type="submit" className={`auth__button ${!isValid ? 'auth__button_disabled' : ""}`} disabled={!isValid} onClick={handleSubmit}>
+            {onLoading ? "Вход..." : "Войти"}
+          </button>
           <p className='auth__text'>Ещё не зарегистрированы? <Link className='auth__link' to='/signup'>Регистрация</Link></p>
         </form>
 
       </section>
     </main>
-
-
   )
 }
 
-export default Register;
+export default Login;

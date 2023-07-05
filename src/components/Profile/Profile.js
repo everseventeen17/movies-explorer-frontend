@@ -1,26 +1,38 @@
-import { useEffect, useState } from "react";
 import "./Profile.css";
-import {useFormValidationHook} from "../../utils/useFormValidationHook";
 import Header from "../Header/Header";
+import { useEffect, useState, useContext } from "react";
+import useFormWithValidation from "../../utils/useFormWithValidation";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+function  Profile({onUpdateUser, onLogout, onLoading, isServerResponseErrorText, setIsServerResponseErrorText, onBurgerClick, loggedIn}) {
 
-function Profile({ user,onBurgerClick }) {
-  const [isEditingBegun, setIsEditingBegun] = useState(false);
-  const { values, errors, isValid, handleChange, resetForm } = useFormValidationHook();
+  const currentUser = useContext(CurrentUserContext);
+  const [isEditingBegun, setEditingStatus] = useState(false);
+  const { values, errors, isValid, handleChange, resetForm } = useFormWithValidation();
+
+
+  useEffect(() => {
+    resetForm(false, currentUser);
+  }, [resetForm, currentUser]);
+
+  useEffect(() => {
+    setIsServerResponseErrorText("");
+  }, [setIsServerResponseErrorText]);
+
   function handleEditClick() {
-    setIsEditingBegun(true);
+    setEditingStatus(!isEditingBegun);
   }
+
   function handleSubmit(e) {
     e.preventDefault();
+    onUpdateUser(values);
+    setEditingStatus(!isEditingBegun);
   }
-  useEffect(() => {
-    resetForm(true, user);
-  }, [resetForm, user]);
 
   return (
     <main>
-      <Header onBurgerClick={onBurgerClick} />
+      <Header onBurgerClick={onBurgerClick} loggedIn={loggedIn} />
       <section className="profile">
-        <h1 className="profile__title">Привет, {user.name}!</h1>
+        <h1 className="profile__title">Привет, {currentUser.name}!</h1>
         <form className='profile__form'>
 
           <label className="profile__input-wrapper">
@@ -32,13 +44,13 @@ function Profile({ user,onBurgerClick }) {
             E-mail
             <input type="email" name="email" className={`profile__input ${errors.email ? "form__input_type_error" : ""}`} required disabled={isEditingBegun ? false : true} onChange={handleChange} value={values.email || ""}/>
           </label>
-          <p className={`registration__api-error ${isEditingBegun ? 'registration__api-error_active' : ""}`}>Что-то пошло не так...</p>
+          <p className={`registration__api-error ${isValid ? 'registration__api-error_active' : ""}`}>{isServerResponseErrorText}</p>
 
-          <button type="submit" className={`profile__button ${!isEditingBegun ? "profile__button_hidden" : ""}  `} onClick={handleSubmit} disabled={isValid ? false : true}>Сохранить</button>
+          <button type="submit" className={`profile__button ${!isEditingBegun ? "profile__button_hidden" : ""}  `} onClick={handleSubmit} disabled={isValid ? false : true}>{onLoading ? "Сохранение..." : "Сохранить"}</button>
 
         <div className={`profile__actions-wrapper ${isEditingBegun ? "profile__actions-wrapper_hidden" : ""}`}>
           <button className="profile__btn-action profile__btn-action_type_edit-profile " type="button" onClick={handleEditClick}>Редактировать</button>
-          <button className="profile__btn-action profile__btn-action_type_exit " type="button">Выйти из аккаунта</button>
+          <button className="profile__btn-action profile__btn-action_type_exit " type="button" onClick={onLogout} >Выйти из аккаунта</button>
         </div>
 
         </form>
