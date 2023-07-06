@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import useFormWithValidation from "../../utils/useFormWithValidation";
+import {isEmail} from "../../utils/constants";
 import { Link } from 'react-router-dom';
 import './Register.css'
 import logo from "../../images/logo.svg";
@@ -14,9 +15,10 @@ function Register({onRegister, onLoading, isServerResponseErrorText, setIsServer
 
   function handleSubmit(e) {
     e.preventDefault();
-    onRegister(values);
+    if(isValid && !onLoading) {
+      onRegister(values);
+    }
   }
-
 
   return loggedIn  ? (
     <Navigate to="/" replace />
@@ -34,22 +36,22 @@ function Register({onRegister, onLoading, isServerResponseErrorText, setIsServer
 
           <label className="registration__input-wrapper">Имя
           <input name="name" type="text" className={`registration__input ${errors.name ? "registration__input_type_error" : " "}`}  minLength="3" maxLength="30" required onChange={handleChange} value={values.name || ''} />
-          {/*<span id="registration__text-error" className={`registration__text-error ${errors.name ? "registration__text-error_visible" : ""}`}>{errors.name}</span>*/}
+          <span id="registration__text-error" className={`registration__text-error ${errors.name ? "registration__text-error_visible" : ""}`}>{errors.name}</span>
           </label>
 
           <label className="registration__input-wrapper">E-mail
-          <input  name="email" type="email" className={`registration__input ${errors.email ? "registration__input_type_error" : " "}`} minLength="3" maxLength="30" required onChange={handleChange} value={values.email || ''} />
-          {/*<span id="registration__text-error" className={`registration__text-error ${errors.email ? "registration__text-error_visible" : ""}`}>{errors.email}</span>*/}
+          <input  name="email" pattern={isEmail} type="email" className={`registration__input ${errors.email ? "registration__input_type_error" : " "}`} minLength="3" maxLength="30" required onChange={handleChange} value={values.email || ''} />
+          <span id="registration__text-error" className={`registration__text-error ${errors.email ? "registration__text-error_visible" : ""}`}>{errors.email}</span>
           </label>
 
           <label className="registration__input-wrapper">Пароль
           <input name="password" type="password" className={`registration__input ${errors.password ? "registration__input_type_error" : " "}`} minLength="3" maxLength="30" required onChange={handleChange} value={values.password || ''} />
-          {/*<span id="registration__text-error" className={`registration__text-error ${errors.password ? "registration__text-error_visible" : ""}`}>{errors.password}</span>*/}
+          <span id="registration__text-error" className={`registration__text-error ${errors.password ? "registration__text-error_visible" : ""}`}>{errors.password}</span>
           </label>
 
           <p className={`registration__api-error ${isValid ? 'registration__api-error_active' : ""}`}>{isServerResponseErrorText}</p>
 
-          <button type="submit" className={`registration__button ${!isValid ? 'registration__button_disabled' : ""}`}  disabled={!isValid} onClick={handleSubmit} >{onLoading ? "Регистрация..." : "Зарегистрироваться"}</button>
+          <button type="submit" className="registration__button"  disabled={!isValid} onClick={handleSubmit} >{onLoading ? "Регистрация..." : "Зарегистрироваться"}</button>
           <p className='registration__text'>Уже зарегистрированы? <Link className='registration__link' to='/signin'>Войти</Link></p>
         </form>
 

@@ -1,4 +1,5 @@
 import { useEffect,useState} from "react";
+import {shortMovieDuration} from "./constants";
 
 export function filterMoviesByName(movies, searchInputValue) {
   const normalizeSearchQuery = searchInputValue.toLowerCase().trim();
@@ -15,7 +16,7 @@ export function filterMoviesByName(movies, searchInputValue) {
 
 export function filterMoviesByDuration(movies) {
   return movies.filter((item) => {
-    return item.duration <= 40
+    return item.duration <= shortMovieDuration
   })
 }
 

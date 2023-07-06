@@ -2,22 +2,25 @@ import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import {useEffect, useState, useCallback} from "react";
 import {useWindowSize} from '../../utils/utils.js';
+import {windowSizeMax, windowSizeMid, windowSizeMin,
+        showFilmsMax, showFilmsMid, showFilmsMin,
+        showMoreMax, showMoreMid, showMoreMin,} from "../../utils/constants";
 
 function MoviesCardList({isSavedFilms, movies, onDeleteMovie, onLikeMovie, isSearchError}) {
   const [moviesToRender, setMoviesToRender] = useState([]);
-  const [showedMoviesCount, setShowedMoviesCount] = useState(12);
-  const [showMoreMoviesCount, setShowMoreMoviesCount] = useState(3);
+  const [showedMoviesCount, setShowedMoviesCount] = useState(showFilmsMax);
+  const [showMoreMoviesCount, setShowMoreMoviesCount] = useState(showMoreMax);
   const [isShowMoreMoviesButtonState, setShowMoreMoviesButtonState] = useState(false);
   const windowSize = useWindowSize();
 
 
   const countNumberMoviesToRender = useCallback(() => {
-   if (windowSize.width < 1024 && windowSize.width >= 768) {
-      setShowedMoviesCount(8);
-      setShowMoreMoviesCount(2);
-    } else if (windowSize.width < 768 && windowSize.width >= 320) {
-      setShowedMoviesCount(5);
-      setShowMoreMoviesCount(2);
+   if (windowSize.width < windowSizeMax && windowSize.width >= windowSizeMid) {
+      setShowedMoviesCount(showFilmsMid);
+      setShowMoreMoviesCount(showMoreMid);
+    } else if (windowSize.width < windowSizeMid && windowSize.width >= windowSizeMin) {
+      setShowedMoviesCount(showFilmsMin);
+      setShowMoreMoviesCount(showMoreMin);
     }
     }, [windowSize])
 

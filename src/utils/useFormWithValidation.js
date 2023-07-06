@@ -7,6 +7,11 @@ function useFormWithValidation() {
   const handleChange = (e) => {
     const target = e.target;
     const { value, name } = target;
+    if (name === "email" && target.validity.patternMismatch) {
+      target.setCustomValidity("Введите email в формате example@example.com");
+    }else {
+      target.setCustomValidity("");
+    }
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: target.validationMessage });
     setIsValid(target.closest('form').checkValidity());

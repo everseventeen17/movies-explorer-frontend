@@ -2,13 +2,19 @@ import "./Profile.css";
 import Header from "../Header/Header";
 import { useEffect, useState, useContext } from "react";
 import useFormWithValidation from "../../utils/useFormWithValidation";
+import {isEmail} from "../../utils/constants";
+
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-function  Profile({onUpdateUser, onLogout, onLoading, isServerResponseErrorText, setIsServerResponseErrorText, onBurgerClick, loggedIn}) {
+function  Profile({onUpdateUser, onLogout, onLoading, isServerResponseErrorText, setIsServerResponseErrorText, onBurgerClick, loggedIn, isSuccess, onSuccess}) {
 
   const currentUser = useContext(CurrentUserContext);
+  const [isCurrentUser, setIsCurrentUser] = useState(true);
   const [isEditingBegun, setEditingStatus] = useState(false);
   const { values, errors, isValid, handleChange, resetForm } = useFormWithValidation();
 
+  useEffect(() => {
+    currentUser.name !== values.name || currentUser.email !== values.email ? setIsCurrentUser(false) : setIsCurrentUser(true);
+  }, [currentUser, values]);
 
   useEffect(() => {
     resetForm(false, currentUser);
@@ -16,20 +22,24 @@ function  Profile({onUpdateUser, onLogout, onLoading, isServerResponseErrorText,
 
   useEffect(() => {
     setIsServerResponseErrorText("");
-  }, [setIsServerResponseErrorText]);
+    onSuccess("")
+  }, [setIsServerResponseErrorText, onSuccess]);
 
   function handleEditClick() {
     setEditingStatus(!isEditingBegun);
+    onSuccess("")
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    onUpdateUser(values);
-    setEditingStatus(!isEditingBegun);
+    if(isValid && !onLoading && !isCurrentUser) {
+      onUpdateUser(values);
+      setEditingStatus(!isEditingBegun);
+    }
   }
 
   return (
-    <main>
+<main>
       <Header onBurgerClick={onBurgerClick} loggedIn={loggedIn} />
       <section className="profile">
         <h1 className="profile__title">Привет, {currentUser.name}!</h1>
@@ -39,14 +49,16 @@ function  Profile({onUpdateUser, onLogout, onLoading, isServerResponseErrorText,
             Имя
             <input type="text" name="name" className={`profile__input ${errors.name ? "form__input_type_error" : ""}`}  required minLength="2" maxLength="30" disabled={isEditingBegun ? false : true} onChange={handleChange} value={values.name || ""}/>
           </label>
+          <span id="profile__text-error" className={`profile__text-error ${errors.name ? "profile__text-error_visible" : ""}`}>{errors.name}</span>
 
           <label className="profile__input-wrapper">
             E-mail
-            <input type="email" name="email" className={`profile__input ${errors.email ? "form__input_type_error" : ""}`} required disabled={isEditingBegun ? false : true} onChange={handleChange} value={values.email || ""}/>
+            <input type="email" name="email" pattern={isEmail} className={`profile__input ${errors.email ? "form__input_type_error" : ""}`} required disabled={isEditingBegun ? false : true} onChange={handleChange} value={values.email || ""}/>
           </label>
+          <span id="profile__text-error" className={`profile__text-error ${errors.email ? "profile__text-error_visible" : ""}`}>{errors.email}</span>
           <p className={`registration__api-error ${isValid ? 'registration__api-error_active' : ""}`}>{isServerResponseErrorText}</p>
-
-          <button type="submit" className={`profile__button ${!isEditingBegun ? "profile__button_hidden" : ""}  `} onClick={handleSubmit} disabled={isValid ? false : true}>{onLoading ? "Сохранение..." : "Сохранить"}</button>
+          <p className="registration__api-success">{isSuccess}</p>
+          <button type="submit" className={`profile__button ${!isEditingBegun ? "profile__button_hidden" : ""}  `} onClick={handleSubmit} disabled={isValid && !isCurrentUser ? false : true}>{onLoading ? "Сохранение..." : "Сохранить"}</button>
 
         <div className={`profile__actions-wrapper ${isEditingBegun ? "profile__actions-wrapper_hidden" : ""}`}>
           <button className="profile__btn-action profile__btn-action_type_edit-profile " type="button" onClick={handleEditClick}>Редактировать</button>
@@ -55,7 +67,7 @@ function  Profile({onUpdateUser, onLogout, onLoading, isServerResponseErrorText,
 
         </form>
       </section>
-    </main>
+</main>
 
 
   );

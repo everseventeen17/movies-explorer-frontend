@@ -29,6 +29,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isPreloaderActive, setIsPreloaderActive] = useState(true);
   const [isServerResponseErrorText, setIsServerResponseErrorText] = useState("");
+  const [isServerResponseSuccess, setIsServerResponseSuccess] = useState("");
   const [isSearchError, setSearchError] = useState(false);
 
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ function App() {
     mainApi.patchUserInfo({name, email})
       .then((userData) => {
         setCurrentUser(userData);
+         return setIsServerResponseSuccess("Вы успешно изменили свои данные");
       })
       .catch((err) => {
         setIsServerResponseErrorText(err);
@@ -120,7 +122,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err)
-        return Promise.reject(err);
+
       })
   }
 
@@ -135,7 +137,6 @@ function App() {
       })
       .catch((err) => {
         console.log(err)
-        return Promise.reject(err);
       })
   }
 
@@ -251,6 +252,8 @@ function App() {
                   onUpdateUser={handleUpdateUserInfo}
                   onLogout={handleUserLogOut}
                   onLoading={isLoading}
+                  isSuccess={isServerResponseSuccess}
+                  onSuccess={setIsServerResponseSuccess}
                   isServerResponseErrorText={isServerResponseErrorText}
                   setIsServerResponseErrorText={setIsServerResponseErrorText}
                   loggedIn={loggedIn}

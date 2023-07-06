@@ -1,11 +1,15 @@
+import {mainApiLink} from "./constants";
 class MainApi {
+  constructor(link) {
+    this._link = link;
+  }
 _handleResponseCheck(res) {
     const result = res.json();
     return res.ok ? result : result.then((err) => Promise.reject(`Ошибка: ${err.message}`));
   }
 
   postRegister({password, email, name}) {
-    return fetch("https://api.movie1337.nomoredomains.rocks/signup", {
+    return fetch(`${this._link}/signup`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json"
@@ -16,7 +20,7 @@ _handleResponseCheck(res) {
   }
 
   postAuth({password, email}) {
-    return fetch("https://api.movie1337.nomoredomains.rocks/signin", {
+    return fetch(`${this._link}/signin`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +31,7 @@ _handleResponseCheck(res) {
   }
 
   getUserInfo() {
-    return fetch("https://api.movie1337.nomoredomains.rocks/users/me", {
+    return fetch(`${this._link}/users/me`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -38,7 +42,7 @@ _handleResponseCheck(res) {
   }
 
   patchUserInfo({email, name}) {
-    return fetch("https://api.movie1337.nomoredomains.rocks/users/me", {
+    return fetch(`${this._link}/users/me`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -50,7 +54,7 @@ _handleResponseCheck(res) {
   }
 
   getCardsByOwner() {
-    return fetch("https://api.movie1337.nomoredomains.rocks/movies", {
+    return fetch(`${this._link}/movies`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -73,7 +77,7 @@ _handleResponseCheck(res) {
                   nameRU,
                   nameEN,
                 }) {
-    return fetch("https://api.movie1337.nomoredomains.rocks/movies", {
+    return fetch(`${this._link}/movies`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -97,7 +101,7 @@ _handleResponseCheck(res) {
   }
 
   deleteSavedCard(id) {
-    return fetch(`https://api.movie1337.nomoredomains.rocks/movies/${id}`, {
+    return fetch(`${this._link}/movies/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -107,6 +111,6 @@ _handleResponseCheck(res) {
       .then(this._handleResponseCheck);
   }
 }
-const mainApi = new MainApi();
+const mainApi = new MainApi(mainApiLink);
 
 export default mainApi;
