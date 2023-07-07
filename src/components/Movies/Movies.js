@@ -61,7 +61,12 @@ function Movies({onBurgerClick, isLoading, loggedIn, onLikeMovie, onDeleteMovie,
     const filteredMoviesByName = JSON.parse(localStorage.getItem('MoviesFilteredByName')) || [];
     const moviesFilteredByDuration = filterMoviesByDuration(filteredMoviesByName)
     const resultMovies = values.checkbox ? moviesFilteredByDuration : filteredMoviesByName;
-    setMovies(resultMovies)
+    if(resultMovies.length === 0){
+      setIsNotFound(true);
+    }else{
+      setIsNotFound(false);
+      setMovies(resultMovies)
+    }
   }
   function updateMovies(values) {
     const movies = JSON.parse(localStorage.getItem('allMovies'));

@@ -11,10 +11,17 @@ function SavedMovies({ onDeleteMovie, onBurgerClick, loggedIn}) {
   const [movies, setMovies] = useState(savedMovies);
   const [values, setValues] = useState( {input: '', checkbox: false,});
   const [error, setError] = useState('');
+  const [isNotFound, setIsNotFound] = useState(false);
 
   const updateMovies = useCallback((values) => {
     const allMovies = filterMoviesByName(savedMovies, values.input);
     const filteredMovies = values.checkbox ? filterMoviesByDuration(allMovies) : allMovies;
+    if(filteredMovies.length === 0){
+      setIsNotFound(true);
+    }else{
+      setIsNotFound(false);
+      setMovies(filteredMovies)
+    }
     setMovies(filteredMovies);}, [savedMovies])
 
   function handleCheckboxChange(event) {
@@ -54,7 +61,7 @@ function SavedMovies({ onDeleteMovie, onBurgerClick, loggedIn}) {
       <main className="saved-movies">
 
         <SearchForm error={error} searchValues={values} handleCheckboxChange={handleCheckboxChange} onFormSubmit={handleSubmit} handleInputChange={handleInputChange} />
-        <MoviesCardList isSavedFilms={true} movies={movies} onDeleteMovie={onDeleteMovie}/>
+        <MoviesCardList isSavedFilms={true} movies={movies} onDeleteMovie={onDeleteMovie} isSearchError={isNotFound}/>
 
       </main>
       <Footer/>
