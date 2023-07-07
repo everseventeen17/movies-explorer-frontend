@@ -15,14 +15,10 @@ import NotFound from "../NotFound/NotFound"
 import Preloader from "../Preloader/Preloader";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import mainApi from "../../utils/mainApi";
-import moviesApi from "../../utils/moviesApi";
-
-import { filterMoviesByDuration, filterMoviesByName } from '../../utils/utils.js';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
-  const [movies, setMovies] = useState([]);
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [isSideMenuOpen, setSideMenuStatus] = useState(false);
@@ -97,7 +93,6 @@ function App() {
   function handleUserLogOut() {
     setLoggedIn(false);
     setCurrentUser({});
-    setMovies([])
     setSavedMovies([])
     localStorage.clear();
     navigate("/", {replace: true});
@@ -140,36 +135,6 @@ function App() {
       })
   }
 
-  function searchMovies(values) {
-    setIsLoading(true)
-    setSearchError(false);
-    return moviesApi.getCards()
-      .then((movies) => {
-        localStorage.setItem('allMovies', JSON.stringify(movies));
-        updateMovies(values)
-      })
-      .catch((err) => {
-        setSearchError(true);
-        console.log(err);
-      })
-      .finally(() => {
-        setIsLoading(false)
-      })
-  }
-
-  function filterMovies(values) {
-    const filteredMoviesByName = JSON.parse(localStorage.getItem('MoviesFilteredByName')) || [];
-    const moviesFilteredByDuration = filterMoviesByDuration(filteredMoviesByName)
-    const resultMovies = values.checkbox ? moviesFilteredByDuration : filteredMoviesByName;
-    setMovies(resultMovies)
-  }
-
-  function updateMovies(values) {
-    const movies = JSON.parse(localStorage.getItem('allMovies'));
-    let filteredMoviesByName = filterMoviesByName(movies, values.input);
-    localStorage.setItem('MoviesFilteredByName', JSON.stringify(filteredMoviesByName));
-    filterMovies(values)
-  }
 
   function handleOpenSideMenu() {
     setSideMenuStatus(!isSideMenuOpen);
@@ -223,11 +188,10 @@ function App() {
               <Route path="/movies" element={
                 <ProtectedRoute
                   element={Movies}
-                  movies={movies}
                   loggedIn={loggedIn}
-                  onSearch={searchMovies}
-                  onFilter={filterMovies}
                   isLoading={isLoading}
+                  setIsLoading={setIsLoading}
+                  setSearchError={setSearchError}
                   isSearchError={isSearchError}
                   onLikeMovie={handleMovieLike}
                   onDeleteMovie={handleDeleteMovie}

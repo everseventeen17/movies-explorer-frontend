@@ -9,7 +9,7 @@ import { filterMoviesByDuration, filterMoviesByName } from '../../utils/utils.js
 function SavedMovies({ onDeleteMovie, onBurgerClick, loggedIn}) {
   const { savedMovies } = useContext(SavedMoviesContext);
   const [movies, setMovies] = useState(savedMovies);
-  const [values, setValues] = useState(JSON.parse(localStorage.getItem('searchFormValuesSavedMovies')) || {input: '', checkbox: false,});
+  const [values, setValues] = useState( {input: '', checkbox: false,});
   const [error, setError] = useState('');
 
   const updateMovies = useCallback((values) => {
@@ -47,9 +47,6 @@ function SavedMovies({ onDeleteMovie, onBurgerClick, loggedIn}) {
     values.checkbox ? updateMovies(values) : setMovies(savedMovies);
   }, [savedMovies, updateMovies, values]);
 
-  useEffect(() => {
-    localStorage.setItem('searchFormValuesSavedMovies', JSON.stringify(values))
-  }, [values]);
 
   return (
     <>
