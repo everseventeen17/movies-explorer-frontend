@@ -7,11 +7,12 @@ import {useState, useEffect} from "react";
 import moviesApi from "../../utils/moviesApi";
 import {filterMoviesByDuration, filterMoviesByName} from "../../utils/utils";
 
-function Movies({onBurgerClick, isLoading, isSearchError, loggedIn, onLikeMovie, onDeleteMovie,setIsLoading,setSearchError }) {
+function Movies({onBurgerClick, isLoading, loggedIn, onLikeMovie, onDeleteMovie, setIsLoading,  }) {
   const [values, setValues] = useState(JSON.parse(localStorage.getItem('searchFormValuesAllMovies')) || {input: '', checkbox: false,});
   const [error, setError] = useState('');
   const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('result')) || []);
-
+  const [isSearchError, setSearchError] = useState(false);
+  const [isNotFound, setIsNotFound] = useState(false);
   function handleInputChange(event) {
     setError('')
     setValues({
@@ -40,14 +41,16 @@ function Movies({onBurgerClick, isLoading, isSearchError, loggedIn, onLikeMovie,
   function searchMovies(values) {
     setIsLoading(true)
     setSearchError(false);
+    setIsNotFound(false);
     return moviesApi.getCards()
       .then((movies) => {
         localStorage.setItem('allMovies', JSON.stringify(movies));
         updateMovies(values)
       })
       .catch((err) => {
-        setSearchError(true);
         console.log(err);
+        setSearchError(true);
+        setIsNotFound(true);
       })
       .finally(() => {
         setIsLoading(false)
@@ -63,8 +66,12 @@ function Movies({onBurgerClick, isLoading, isSearchError, loggedIn, onLikeMovie,
   function updateMovies(values) {
     const movies = JSON.parse(localStorage.getItem('allMovies'));
     let filteredMoviesByName = filterMoviesByName(movies, values.input);
+    if(filteredMoviesByName.length === 0 ){
+      setIsNotFound(true);
+    }else{
     localStorage.setItem('MoviesFilteredByName', JSON.stringify(filteredMoviesByName));
     filterMovies(values)
+    }
   }
   useEffect(() => {
     localStorage.setItem('searchFormValuesAllMovies', JSON.stringify(values))
@@ -81,7 +88,7 @@ function Movies({onBurgerClick, isLoading, isSearchError, loggedIn, onLikeMovie,
         <SearchForm error={error} searchValues={values} isSearchError={isSearchError} handleCheckboxChange={handleCheckboxChange} onFormSubmit={handleSubmit} handleInputChange={handleInputChange} />
         {isLoading
           ? <Preloader/>
-          : <MoviesCardList movies={movies} isSearchError={isSearchError} onDeleteMovie={onDeleteMovie} onLikeMovie={onLikeMovie}/>
+          : <MoviesCardList movies={movies} isSearchError={isNotFound} onDeleteMovie={onDeleteMovie} onLikeMovie={onLikeMovie}/>
         }
       </main>
       <Footer/>

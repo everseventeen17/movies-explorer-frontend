@@ -26,7 +26,6 @@ function App() {
   const [isPreloaderActive, setIsPreloaderActive] = useState(true);
   const [isServerResponseErrorText, setIsServerResponseErrorText] = useState("");
   const [isServerResponseSuccess, setIsServerResponseSuccess] = useState("");
-  const [isSearchError, setSearchError] = useState(false);
 
   const navigate = useNavigate();
 
@@ -191,8 +190,7 @@ function App() {
                   loggedIn={loggedIn}
                   isLoading={isLoading}
                   setIsLoading={setIsLoading}
-                  setSearchError={setSearchError}
-                  isSearchError={isSearchError}
+
                   onLikeMovie={handleMovieLike}
                   onDeleteMovie={handleDeleteMovie}
                   onBurgerClick={handleOpenSideMenu}

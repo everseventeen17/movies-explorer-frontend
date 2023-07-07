@@ -64,7 +64,7 @@ function MoviesCardList({isSavedFilms, movies, onDeleteMovie, onLikeMovie, isSea
         ))}
       </ul>)
     }
-    { !isSavedFilms && isShowMoreMoviesButtonState && (
+    { !isSavedFilms && isShowMoreMoviesButtonState && !isSearchError && (
       <button className="movies-cards__btn-more" type="button" onClick={handleShowMoreMovies}>Ещё</button>
     )}
   </section>
