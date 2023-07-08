@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import useFormWithValidation from "../../utils/useFormWithValidation";
-import {isEmail} from "../../utils/constants";
+import {IS_EMAIL} from "../../utils/constants";
 import './Login.css'
 import logo from "../../images/logo.svg";
 
@@ -34,7 +34,7 @@ function Login({onLogin, onLoading, isServerResponseErrorText, setIsServerRespon
         <form className='auth__form' onSubmit={onSubmit}>
 
           <label className="auth__input-wrapper">E-mail
-            <input name="email" pattern={isEmail} type="email" className={`auth__input ${errors.email ? "auth__input_type_error" : ""}`} minLength="2" maxLength="30" required onChange={handleChange} value={values.email || ''} />
+            <input name="email" pattern={IS_EMAIL} type="email" className={`auth__input ${errors.email ? "auth__input_type_error" : ""}`} minLength="2" maxLength="30" required onChange={handleChange} value={values.email || ''} />
             <span id="auth__text-error" className={`auth__text-error ${errors.email ? "auth__text-error_visible" : ""}`}>{errors.email}</span>
           </label>
 

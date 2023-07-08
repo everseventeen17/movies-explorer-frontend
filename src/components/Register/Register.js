@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import useFormWithValidation from "../../utils/useFormWithValidation";
-import {isEmail} from "../../utils/constants";
+import {IS_EMAIL} from "../../utils/constants";
 import { Link } from 'react-router-dom';
 import './Register.css'
 import logo from "../../images/logo.svg";
@@ -40,7 +40,7 @@ function Register({onRegister, onLoading, isServerResponseErrorText, setIsServer
           </label>
 
           <label className="registration__input-wrapper">E-mail
-          <input  name="email" pattern={isEmail} type="email" className={`registration__input ${errors.email ? "registration__input_type_error" : " "}`} minLength="3" maxLength="30" required onChange={handleChange} value={values.email || ''} />
+          <input  name="email" pattern={IS_EMAIL} type="email" className={`registration__input ${errors.email ? "registration__input_type_error" : " "}`} minLength="3" maxLength="30" required onChange={handleChange} value={values.email || ''} />
           <span id="registration__text-error" className={`registration__text-error ${errors.email ? "registration__text-error_visible" : ""}`}>{errors.email}</span>
           </label>
 

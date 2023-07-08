@@ -2,7 +2,7 @@ import "./Profile.css";
 import Header from "../Header/Header";
 import { useEffect, useState, useContext } from "react";
 import useFormWithValidation from "../../utils/useFormWithValidation";
-import {isEmail} from "../../utils/constants";
+import {IS_EMAIL} from "../../utils/constants";
 
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 function  Profile({onUpdateUser, isEditingBegun, setEditingStatus, onLogout, onLoading, isServerResponseErrorText, setIsServerResponseErrorText, onBurgerClick, loggedIn, isSuccess, onSuccess}) {
@@ -51,7 +51,7 @@ function  Profile({onUpdateUser, isEditingBegun, setEditingStatus, onLogout, onL
 
           <label className="profile__input-wrapper">
             E-mail
-            <input type="email" name="email" pattern={isEmail} className={`profile__input ${errors.email ? "form__input_type_error" : ""}`} required disabled={isEditingBegun ? false : true} onChange={handleChange} value={values.email || ""}/>
+            <input type="email" name="email" pattern={IS_EMAIL} className={`profile__input ${errors.email ? "form__input_type_error" : ""}`} required disabled={isEditingBegun ? false : true} onChange={handleChange} value={values.email || ""}/>
           </label>
           <span id="profile__text-error" className={`profile__text-error ${errors.email ? "profile__text-error_visible" : ""}`}>{errors.email}</span>
           <p className={`registration__api-error ${isValid ? 'registration__api-error_active' : ""}`}>{isServerResponseErrorText}</p>

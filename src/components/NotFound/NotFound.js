@@ -4,7 +4,7 @@ function NotFound() {
 
   const navigate = useNavigate();
   function handleBackToLastPage() {
-    window.history.state.idx !== 0 ? navigate(-1) : navigate("/", { replace: true });
+   navigate(-1);
   }
 
   return (

@@ -1,4 +1,4 @@
-import {movieApiLink} from "./constants";
+import {MOVIE_API_LINK} from "./constants";
 class MoviesApi {
   constructor(link) {
     this._link = link;
@@ -18,6 +18,6 @@ class MoviesApi {
       .then(this._handleResponseCheck);
   }
 }
-const moviesApi = new MoviesApi(movieApiLink);
+const moviesApi = new MoviesApi(MOVIE_API_LINK);
 
 export default moviesApi;

@@ -1,4 +1,4 @@
-import {mainApiLink} from "./constants";
+import {MAIN_API_LINK} from "./constants";
 class MainApi {
   constructor(link) {
     this._link = link;
@@ -111,6 +111,6 @@ _handleResponseCheck(res) {
       .then(this._handleResponseCheck);
   }
 }
-const mainApi = new MainApi(mainApiLink);
+const mainApi = new MainApi(MAIN_API_LINK);
 
 export default mainApi;
