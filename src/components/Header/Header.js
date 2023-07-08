@@ -1,13 +1,13 @@
-import {Link, useLocation} from "react-router-dom";
+import {Link} from "react-router-dom";
 import "./Header.css";
 import logo from "../../images/logo.svg";
 import Navigation from "../Navigation/Navigation";
 
-function Header({onBurgerClick, onClose, isSideMenu}) {
-  const location = useLocation();
+function Header({onBurgerClick, onClose, isSideMenu, loggedIn }) {
+
   return (
     <>
-      {location.pathname === "/" ?
+      { loggedIn !== true ? (
 
         <header className="header">
           <div className="header__inner">
@@ -31,7 +31,7 @@ function Header({onBurgerClick, onClose, isSideMenu}) {
             </ul>
           </div>
         </header>
-        :
+        ) : (
         <header className="header">
           <div className="header__inner">
             <div className="header__inner-wrapper">
@@ -50,7 +50,7 @@ function Header({onBurgerClick, onClose, isSideMenu}) {
             {/*Account - end*/}
             <button className="header__btn-hamburger" type="button" onClick={onBurgerClick}></button>
           </div>
-        </header>
+        </header> )
       }
     </>
 

@@ -111,3 +111,16 @@
   background-size: cover;
   background-position: center center;
 }
+
+.search__errors{
+  text-align: center;
+}
+.search-form__error{
+  height: 20px;
+  margin: 0 0 0 0;
+  font-family: 'Inter', Helvetica, sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 10px;
+  color: #EE3465;
+}
