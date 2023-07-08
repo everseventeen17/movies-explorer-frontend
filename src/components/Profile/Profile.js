@@ -5,11 +5,10 @@ import useFormWithValidation from "../../utils/useFormWithValidation";
 import {isEmail} from "../../utils/constants";
 
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-function  Profile({onUpdateUser, onLogout, onLoading, isServerResponseErrorText, setIsServerResponseErrorText, onBurgerClick, loggedIn, isSuccess, onSuccess}) {
+function  Profile({onUpdateUser, isEditingBegun, setEditingStatus, onLogout, onLoading, isServerResponseErrorText, setIsServerResponseErrorText, onBurgerClick, loggedIn, isSuccess, onSuccess}) {
 
   const currentUser = useContext(CurrentUserContext);
   const [isCurrentUser, setIsCurrentUser] = useState(true);
-  const [isEditingBegun, setEditingStatus] = useState(false);
   const { values, errors, isValid, handleChange, resetForm } = useFormWithValidation();
 
   useEffect(() => {
@@ -34,7 +33,6 @@ function  Profile({onUpdateUser, onLogout, onLoading, isServerResponseErrorText,
     e.preventDefault();
     if(isValid && !onLoading && !isCurrentUser) {
       onUpdateUser(values);
-      setEditingStatus(!isEditingBegun);
     }
   }
 

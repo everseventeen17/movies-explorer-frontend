@@ -20,6 +20,8 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
 
+  const [isEditingBegun, setEditingStatus] = useState(false);
+
   const [loggedIn, setLoggedIn] = useState(false);
   const [isSideMenuOpen, setSideMenuStatus] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -33,10 +35,14 @@ function App() {
     setIsLoading(true);
     mainApi.patchUserInfo({name, email})
       .then((userData) => {
-        setCurrentUser(userData);
-         return setIsServerResponseSuccess("Вы успешно изменили свои данные");
+        if(userData){
+          setEditingStatus(false)
+          setCurrentUser(userData);
+          setIsServerResponseSuccess("Вы успешно изменили свои данные");
+        }
       })
       .catch((err) => {
+        setEditingStatus(true)
         setIsServerResponseErrorText(err);
         if (err === 'Ошибка: Validation failed') {
           return setIsServerResponseErrorText('Ошибка: Введите email в формате example@example.com');
@@ -219,6 +225,8 @@ function App() {
                   isServerResponseErrorText={isServerResponseErrorText}
                   setIsServerResponseErrorText={setIsServerResponseErrorText}
                   loggedIn={loggedIn}
+                  setEditingStatus = {setEditingStatus}
+                  isEditingBegun = {isEditingBegun}
                   onBurgerClick={handleOpenSideMenu}
                 />
               }
